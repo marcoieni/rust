@@ -31,20 +31,17 @@
       "dependencyDashboardApproval": false
     },
     {
-      // Only maintain the Cargo lockfiles managed by update-lockfile.sh.
+      // Update all Cargo.lock files except library/Cargo.lock in one PR.
       "matchManagers": ["cargo"],
       "matchUpdateTypes": ["lockFileMaintenance"],
-      "enabled": false
+      "groupName": "Cargo lock file maintenance"
     },
     {
+      // Update library/Cargo.lock in a dedicated PR.
       "matchManagers": ["cargo"],
       "matchUpdateTypes": ["lockFileMaintenance"],
-      "matchFileNames": [
-        "Cargo.toml",
-        "library/Cargo.toml",
-        "src/tools/rustbook/Cargo.toml"
-      ],
-      "enabled": true
+      "matchFileNames": ["library/Cargo.lock"],
+      "groupName": "library lock file maintenance"
     }
   ],
   // Don't manage dependencies inside subtrees. They are updated upstream and
