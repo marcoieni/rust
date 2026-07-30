@@ -48,16 +48,25 @@
       "commitMessageAction": "Library lock file maintenance"
     },
     {
-      // Update the root yarn.lock in a dedicated PR.
+      // These packages don't have a committed Cargo.lock file.
+      "matchManagers": ["cargo"],
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "matchFileNames": [
+        "library/rustc-std-workspace-*/Cargo.toml",
+      ],
+      "enabled": false
+    },
+    {
+      // Update yarn.lock in a dedicated PR.
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["lockFileMaintenance"],
       "groupName": "Yarn lock file maintenance",
       "commitMessageAction": "Yarn lock file maintenance"
     }
   ],
-  // Don't manage dependencies inside subtrees. They are updated upstream and
-  // synced in. See `src/doc/rustc-dev-guide/src/external-repos.md` for the list.
   "ignorePaths": [
+    // Don't manage dependencies inside subtrees. They are updated upstream and
+    // synced in. See `src/doc/rustc-dev-guide/src/external-repos.md` for the list.
     "compiler/rustc_codegen_cranelift/**",
     "compiler/rustc_codegen_gcc/**",
     "library/compiler-builtins/**",
@@ -67,6 +76,10 @@
     "src/tools/clippy/**",
     "src/tools/miri/**",
     "src/tools/rust-analyzer/**",
-    "src/tools/rustfmt/**"
+    "src/tools/rustfmt/**",
+
+    // Test manifests are fixtures; their versions and lockfiles may
+    // intentionally be part of the test input.
+    "tests/*"
   ]
 }
