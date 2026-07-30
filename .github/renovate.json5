@@ -1,5 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "forkProcessing": "enabled",
+  "mode": "full",
   "extends": [
     // Use https://github.com/rust-lang/renovate/blob/main/actions.json
     "github>rust-lang/renovate:actions",
