@@ -51,6 +51,7 @@
       // Update the root yarn.lock in a dedicated PR.
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["lockFileMaintenance"],
+      "groupName": "Yarn lock file maintenance",
       "commitMessageAction": "Yarn lock file maintenance"
     }
   ],
