@@ -8,10 +8,13 @@ IFS=$'\n\t'
 source "$(cd "$(dirname "$0")" && pwd)/../shared.sh"
 
 if isMacOS; then
-    curl -fo sccache.tar.gz \
+    tmp_dir="$(mktemp -d)"
+    curl -fo "${tmp_dir}/sccache.tar.gz" \
       "${MIRRORS_BASE}/2026-06-19-sccache-v0.16.0-x86_64-apple-darwin.tar.gz"
-    tar -xvf sccache.tar.gz --strip-components 1
-    mv sccache /usr/local/bin/sccache
+    tar -xvf "${tmp_dir}/sccache.tar.gz" --strip-components 1 -C "${tmp_dir}" \
+      sccache-v0.16.0-x86_64-apple-darwin/sccache
+    mv "${tmp_dir}/sccache" /usr/local/bin/sccache
+    rm -rf "${tmp_dir}"
     chmod +x /usr/local/bin/sccache
 elif isWindows; then
     mkdir -p sccache
